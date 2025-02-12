@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import music from "../assets/music.webp";
 import Card from "react-bootstrap/Card";
@@ -102,7 +101,7 @@ const Content = () => {
           
 
           <div className="col-5 ms-3">
-          <iframe width="500" height="315" src="https://www.youtube.com/embed/XHFzlyWVH8Q?si=kzC1Rdq_qpjbVpbd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen className="rounded"></iframe>
+          <iframe width="500" height="315" src="https://www.youtube.com/embed/XHFzlyWVH8Q?si=kzC1Rdq_qpjbVpbd" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen className="rounded"></iframe>
 
           </div>
         </div>

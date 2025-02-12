@@ -10,7 +10,7 @@ const Header = () => {
     <Container>
 
       <Link to={'/'} style={{textDecoration:"none",padding:"8px"}}>
-      <Navbar.Brand href="#home" className='text-dark  '> 
+      <Navbar.Brand className='text-dark  '> 
       <i className="fa-solid fa-music fs-2 me-1"></i>
         {" "}
         <span style={{fontWeight:"700",fontSize:"25px"}}>Music Player</span>
