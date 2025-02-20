@@ -1,9 +1,10 @@
-import { Alert, Button, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import React, { useState } from "react";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
+import { uploadVideo } from "../services/allAPI";
 
-const Add = () => {
+const Add = ({setVideoResp}) => {
 
   const [video, setVideo] = useState({
     caption: "",
@@ -17,9 +18,29 @@ const Add = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleSave=()=>{
+  const handleSave=async()=>{
     if(video.caption && video.image && video.videoURL){
-      console.log("saved");
+      try{
+            let response=await uploadVideo(video)
+            setVideoResp(response)
+            if(200<=response.status<=300){
+              alert("Data Saved Successfully")
+              setShow(false)
+              setVideo({
+                caption: "",
+                image: "",
+                videoURL: "",
+              })
+            }else{
+              alert("Error Occured Contact ADMIN")
+            }
+            
+            
+      }
+      catch{
+          alert("An error Occured")
+      }
+      
       
     }else{
       alert("Please Fill the form")
