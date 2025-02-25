@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Modal } from "react-bootstrap";
-import { addHistory, deleteVideo, showVideo } from "../services/allAPI";
+import { addHistory, deleteVideo, getSingleCategory, showVideo, updateCategory, uploadVideo } from "../services/allAPI";
 
-const Allvideos = ({allVideos}) => {
+const Allvideos = ({allVideos,videoDeleteResponse,setCategoryVideoResponseDelete}) => {
   const [show, setShow] = useState(false);
 
   const [selectedVideo,setSelectedVideo]=useState(null);
@@ -40,8 +40,8 @@ const Allvideos = ({allVideos}) => {
     }
   };
   useEffect(() => {
-    getVideos(), [allVideos];
-  });
+    getVideos()}, [allVideos,videoDeleteResponse]
+  );
 
  const onDeleteClickVideo = async(id)=>{
   // console.log(id);
@@ -60,11 +60,35 @@ const Allvideos = ({allVideos}) => {
   const onVideoDrag=(e,id)=>{
     e.dataTransfer.setData("videoID",id)
   }
+
+  const onDragOverDiv=(e)=>{
+    e.preventDefault();
+  }
+
+  const onVideoDrop = async (e)=>{
+    let {categoryId,videoObj} =JSON.parse(e.dataTransfer.getData("fromCategoryVideo"))
+    console.log(categoryId,videoObj);
+    await uploadVideo(videoObj)
+    getVideos()
+
+    let apiResponse=await getSingleCategory(categoryId);
+    let currentAllVideos = apiResponse.data.allVideos;
+    let sortedVideos=currentAllVideos.filter((item)=>item.id!=videoObj.id)
+    console.log("wsf",sortedVideos);
+    const payload ={
+      id:categoryId,
+      categoryName:apiResponse.data.categoryName,
+      allVideos:sortedVideos
+    }
+
+   let deleteResponse=  await updateCategory(categoryId,payload)
+   setCategoryVideoResponseDelete(deleteResponse)
+  }
   return (
     <div>
-      <div>
+      <div onDragOver={(e)=>onDragOverDiv(e)} onDrop={(e)=>onVideoDrop(e)}>
         <h4>Allvideos</h4>
-        <div style={{ display: "flex ", flexWrap: "wrap", gap: "20px",border:"1px solid ", width:"90%", padding:"10px" }}>
+        <div className="mt-5 border border-1 rounded p-3" style={{ display: "flex ", flexWrap: "wrap", gap: "20px", width:"90%" }}>
           { data.length>0?data.map((obj, index) => (
             <div key={index}>
               <Card

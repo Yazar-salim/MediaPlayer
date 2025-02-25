@@ -8,6 +8,8 @@ import Allcategories from '../Components/Allcategories'
 const Home = () => {
 
   const [videoResponse,setVideoResponse]=useState("")
+  const [videoDeleteResponse,setVideoDeleteResponse]=useState("")
+  const [categoryVideoResponseDelete,setCategoryVideoResponseDelete]=useState("")
   return (
     <div className='container'>
       <div className='d-flex justify-content-between py-5'>
@@ -24,11 +26,11 @@ const Home = () => {
 
       <div className='d-flex justify-content-between py-3 '>
       <div className='w-50'>
-        < Allvideos allVideos={videoResponse}/>
+        < Allvideos allVideos={videoResponse} videoDeleteResponse={videoDeleteResponse} setCategoryVideoResponseDelete={setCategoryVideoResponseDelete}/>
       </div>
 
       <div className='w-50'>
-        <Allcategories/>
+        <Allcategories setVideoDeleteResponse={setVideoDeleteResponse} categoryVideoResponseDelete={categoryVideoResponseDelete}/>
       </div>
       </div>
      
